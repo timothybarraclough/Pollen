@@ -17,28 +17,27 @@ library
   hs-source-dirs:      src
   exposed-modules:     Lib
   build-depends:       base >= 4.7 && < 5
-                     , aeson >= 1.2.2.0
-                     , servant-server >= 0.11
-                     , persistent-postgresql >= 2.6.1
-                     , wai >= 3.2.1.1
-                     , warp >= 3.2.13
-                     , base
+                     , aeson
+                     , wai
+                     , warp
+                     , servant
+                     , servant-server
+                     , persistent
+                     , persistent-postgresql
+                     , postgresql-libpq
                      , blaze-builder
                      , bytestring
                      , conduit
                      , containers
                      , monad-control
                      , monad-logger
-                     , persistent
-                     , postgresql-libpq
-                     , postgresql-simple
+                     , hex
                      , resource-pool
                      , resourcet
                      , text
                      , time
                      , transformers
-                     , aeson-pretty >= 0.8.5
-                     , hex >= 0.1.2
+                     , aeson-pretty
   default-language:    Haskell2010
 
 executable Pollen
