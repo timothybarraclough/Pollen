@@ -16,14 +16,21 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     Lib
+                     , Config
+                     , Models
+                     , Api
+                     , Api.Device
   build-depends:       base >= 4.7 && < 5
                      , aeson
                      , wai
+                     , wai-extra
                      , warp
-                     , servant
-                     , servant-server
+                     , safe
+                     , servant == 0.9.1.1
+                     , servant-server == 0.9.1.1
                      , persistent
                      , persistent-postgresql
+                     , persistent-template
                      , postgresql-libpq
                      , blaze-builder
                      , bytestring
@@ -31,6 +38,7 @@ library
                      , containers
                      , monad-control
                      , monad-logger
+                     , mtl
                      , hex
                      , resource-pool
                      , resourcet
@@ -63,4 +71,4 @@ test-suite Pollen-test
 
 source-repository head
   type:     git
-  location: https://github.com/githubuser/Pollen
+  location: https://github.com/timothybarraclough/Pollen

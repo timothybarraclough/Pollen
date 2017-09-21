@@ -1,43 +1,43 @@
-{-# LANGUAGE DataKinds       #-}
-{-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE TypeOperators   #-}
-module Lib
-    ( startApp
-    , app
-    ) where
+module Lib where
 
-import Data.Aeson
-import Data.Aeson.TH
-import Network.Wai
-import Network.Wai.Handler.Warp
-import Servant
+import           Database.Persist.Postgresql (runSqlPool)
+import           Network.Wai.Handler.Warp    (run)
+import           System.Environment          (lookupEnv)
+
+import           Api                         (app)
+import           Config                      (Config (..), Environment (..),
+                                              makePool, setLogger)
+import           Models                      (doMigrations)
+import           Safe                        (readMay)
 
 
-data User = User
-  { userId        :: Int
-  , userFirstName :: String
-  , userLastName  :: String
-  } deriving (Eq, Show)
-
-$(deriveJSON defaultOptions ''User)
-
-type API = "users" :> Get '[JSON] [User]
-
+-- | The 'main' function gathers the required environment information and
+-- initializes the application.
 startApp :: Int -> IO ()
 startApp port = do
-  putStrLn $ "Starting App on port : " ++ show port
-  run port app
+    env  <- lookupSetting "ENV" Development
+    port <- lookupSetting "PORT" port
+    pool <- makePool env
+    let cfg = Config { getPool = pool, getEnv = env }
+        logger = setLogger env
+    runSqlPool doMigrations pool
+    run port $ logger $ app cfg
 
-app :: Application
-app = serve api server
-
-api :: Proxy API
-api = Proxy
-
-server :: Server API
-server = return users
-
-users :: [User]
-users = [ User 1 "Isaac" "Newton"
-        , User 2 "Albert" "Einstein"
-        ]
+-- | Looks up a setting in the environment, with a provided default, and
+-- 'read's that information into the inferred type.
+lookupSetting :: Read a => String -> a -> IO a
+lookupSetting env def = do
+    maybeValue <- lookupEnv env
+    case maybeValue of
+        Nothing ->
+            return def
+        Just str ->
+            maybe (handleFailedRead str) return (readMay str)
+  where
+    handleFailedRead str =
+        error $ mconcat
+            [ "Failed to read [["
+            , str
+            , "]] for environment variable "
+            , env
+            ]
