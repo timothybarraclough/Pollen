@@ -116,7 +116,6 @@
 			isa = PBXGroup;
 			children = (
 				81BDFD151F7475BA006ABBA6 /* PollenPush.entitlements */,
-				81BDFD081F73778E006ABBA6 /* PollenPushServices */,
 				81BDFCF41F737751006ABBA6 /* AppDelegate.swift */,
 				81BDFCF61F737751006ABBA6 /* ViewController.swift */,
 				81BDFCF81F737751006ABBA6 /* Main.storyboard */,
@@ -125,13 +124,6 @@
 				81BDFD001F737751006ABBA6 /* Info.plist */,
 			);
 			path = PollenPush;
-			sourceTree = "<group>";
-		};
-		81BDFD081F73778E006ABBA6 /* PollenPushServices */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PollenPushServices;
 			sourceTree = "<group>";
 		};
 		81BDFD1E1F749FD4006ABBA6 /* PollenSDK */ = {

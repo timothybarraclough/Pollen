@@ -31,13 +31,16 @@ extension PollenNetworkSession : PollenPushHandler {
 
     public func registerForRemoteNotifications(in application: RemoteNotificationConfigurableProtocol) {
 
-
-
         if #available(iOS 10.0, *) {
             let center = UNUserNotificationCenter.current()
             center.requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in
+                if granted {
+                    DispatchQueue.main.async {
+                        application.registerForRemoteNotifications()
+                    }
+                }
             }
-            application.registerForRemoteNotifications()
+
         } else {
             let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
             application.registerUserNotificationSettings(settings)

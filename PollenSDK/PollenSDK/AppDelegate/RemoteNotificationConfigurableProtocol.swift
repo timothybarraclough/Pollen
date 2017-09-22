@@ -7,11 +7,10 @@
 //
 
 import Foundation
-import UIKit
 
 public protocol RemoteNotificationConfigurableProtocol {
     func registerForRemoteNotifications()
     func registerUserNotificationSettings(_ settings: UIUserNotificationSettings)
 }
 
-extension UIApplication : RemoteNotificationConfigurableProtocol { }
+

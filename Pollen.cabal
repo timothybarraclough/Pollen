@@ -32,6 +32,8 @@ library
                      , persistent-postgresql
                      , persistent-template
                      , postgresql-libpq
+                     , push-notify
+                     , text
                      , blaze-builder
                      , bytestring
                      , conduit
