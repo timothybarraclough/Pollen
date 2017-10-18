@@ -1,6 +1,7 @@
 {-# LANGUAGE DataKinds                  #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE TypeOperators              #-}
+{-# LANGUAGE OverloadedStrings          #-}
 
 module Api.Device where
 
@@ -17,10 +18,13 @@ import           Config                      (App (..), Config (..))
 import           Models
 import           Data.Text (Text)
 
+import           Network.PushNotify.APN
+
 type DeviceAPI =
          "devices" :> Get '[JSON] [Entity Device]
     :<|> "devices" :> Capture "uuid" Text :> Get '[JSON] (Entity Device)
     :<|> "devices" :> ReqBody '[JSON] Device :> Post '[JSON] Int64
+    :<|> "notifications" :> ReqBody '[JSON] Device :> Post '[JSON] String
 
 -- | The server that runs the DeviceAPI
 deviceServer :: ServerT DeviceAPI App
@@ -28,6 +32,7 @@ deviceServer =
          allDevices
     :<|> singleDevice
     :<|> createDevice
+    :<|> sendTestNotification
 
 -- | Returns all devices in the database.
 allDevices :: App [Entity Device]
@@ -49,3 +54,14 @@ createDevice :: Device -> App Int64
 createDevice p = do
     newDevice <- runDb (insert p)
     return $ fromSqlKey newDevice
+
+sendTestNotification :: Device -> App String
+sendTestNotification deviceToken = do
+    let sandbox = True -- Production environment
+    let timeout = 10   -- Minutes to keep the connection open
+    session <- newSession "Pollen.key" "Pollen.crt" "pushCA.pem" sandbox timeout "com.floracreative.PollenPush"
+    let payload = alertMessage "Let's give it a go!" "Hello From Haskell"
+    let message = newMessage payload
+    let token   = hexEncodedToken deviceToken
+    result <- sendMessage session token message
+    return $ toString result

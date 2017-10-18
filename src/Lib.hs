@@ -1,5 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 module Lib where
 
 import           Database.Persist.Postgresql (runSqlPool)
@@ -11,7 +9,7 @@ import           Config                      (Config (..), Environment (..),
                                               makePool, setLogger)
 import           Models                      (doMigrations)
 import           Safe                        (readMay)
-import           Network.PushNotify.APN
+
 
 
 -- | The 'main' function gathers the required environment information and
@@ -44,14 +42,3 @@ lookupSetting env def = do
             , "]] for environment variable "
             , env
             ]
-
-testNotification :: IO()
-testNotification = do
-    let sandbox = True -- Production environment
-    let timeout = 10   -- Minutes to keep the connection open
-    session <- newSession "Pollen.key" "Pollen.crt" "pushCA.pem" sandbox timeout "com.floracreative.PollenPush"
-    let payload = alertMessage "Let's give it a go!" "Hello From Haskell"
-    let message = newMessage payload
-    let token   = hexEncodedToken "99ebc5deab93d51067d6ccdbcf08ab89608ba382126eb79ef1ecbbb4a59d6f4a"
-    success <- sendMessage session token message
-    print success

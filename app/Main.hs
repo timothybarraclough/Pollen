@@ -1,11 +1,6 @@
 module Main where
 
-import           Lib
-
-
--- main :: IO ()
--- main = startApp 8080
-
+import Lib
 
 main :: IO ()
-main = testNotification
+main = startApp 8080
