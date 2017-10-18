@@ -10,3 +10,9 @@ $ psql -U postgres
 > ALTER ROLE pollen with LOGIN;
 > ALTER ROLE pollen with SUPERUSER;
 ```
+
+## Test notification endpoint
+
+```
+$ curl -H "Content-Type: application/json" -X POST -d '{"deviceToken":"foo"}' http://localhost:8080/notifications
+```
