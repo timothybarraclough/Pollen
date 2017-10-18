@@ -103,4 +103,11 @@ PollenSDK/fastlane/test_output
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 
+*.key
+*.crt
+*.p12
+*.pem
+*.pkey
+*.p8
+
 # End of https://www.gitignore.io/api/swift,xcode,cocoapods
