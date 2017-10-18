@@ -106,4 +106,4 @@ envPool Production = 8
 -- | A basic 'ConnectionString' for local/test development. Pass in either
 -- @""@ for 'Development' or @"test"@ for 'Test'.
 connStr :: BS.ByteString -> ConnectionString
-connStr sfx = "host=localhost dbname=timothybarraclough" <> sfx <> " user=timothybarraclough password= port=5432"
+connStr sfx = "host=localhost dbname=pollen_dev" <> sfx <> " user=pollen password= port=5432"
