@@ -1,41 +1,21 @@
 module Main where
 
-
-
-import           Control.Concurrent
-import           Data.Default
-import qualified Data.HashSet            as HS
-import           Data.Text               (pack)
 import           Lib
-import           Network.PushNotify.Apns
-import           Network.TLS.Extra       (fileReadCertificate,
-                                          fileReadPrivateKey)
+import           Network.PushNotify.APN
 
 main :: IO ()
--- main = startApp 8080
+main = startApp 8080
+
+
+main :: IO ()
 main = do
-             cert <- fileReadCertificate "public-cert.pem"
-             key  <- fileReadPrivateKey  "private-key.pem"
-             let confg = def{
-                             apnsCertificate = cert
-                         ,   apnsPrivateKey  = key
-                         ,   environment     = Local }
-
-             putStrLn "Let's send a notification:"
-
-             putStrLn "A device token (hexadecimal): "
-             dtoken  <- getLine
-
-             putStrLn "An alert message: "
-             alertMsg <- getLine
-
-             let msg = def { deviceTokens = HS.singleton $ pack dtoken
-                           , alert = Left $ pack alertMsg }
-             manager <- startAPNS confg
-             res     <- sendAPNS manager msg
-             putStrLn ("Result: " ++ show res)
-             closeAPNS manager
-
-             putStrLn "\nLet's connect to the Feedback Service:"
-             fres    <- feedBackAPNS confg
-             putStrLn ("Result: " ++ show fres)
+    let sandbox = True -- Development environment
+    let timeout = 10   -- Minutes to keep the connection open
+    session <- newSession "my.key" "my.crt"
+    "/etc/ssl/ca_certificates.txt" sandbox
+    timeout "my.bundle.id"
+    let payload = alertMessage "Title" "Hello From Haskell"
+    let message = newMessage payload
+    let token   = base16EncodedToken "the-token"
+    success <- sendMessage session token payload
+    print success

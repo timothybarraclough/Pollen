@@ -9,7 +9,9 @@ extra-deps:
 - cryptonite-0.24
 - file-embed-0.0.10.1
 - haskell-src-exts-1.19.1
+- http2-client-0.3.0.2
 - optparse-applicative-0.14.0.0
+- push-notify-apn-0.1.0.4
 - servant-0.9.1.1
 - servant-server-0.9.1.1
 - streaming-commons-0.1.18

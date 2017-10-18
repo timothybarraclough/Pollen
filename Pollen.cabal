@@ -21,7 +21,6 @@ library
                      , Api
                      , Api.Device
   build-depends:       base >= 4.7 && < 5
-                     , aeson
                      , wai
                      , wai-extra
                      , warp
@@ -32,22 +31,24 @@ library
                      , persistent-postgresql
                      , persistent-template
                      , postgresql-libpq
-                     , push-notify
+                     , unordered-containers
                      , text
                      , blaze-builder
-                     , bytestring
                      , conduit
                      , containers
-                     , monad-control
                      , monad-logger
-                     , mtl
                      , hex
                      , resource-pool
                      , resourcet
-                     , text
                      , time
                      , transformers
+                     , aeson
                      , aeson-pretty
+                     , push-notify-apn
+                     , http2
+                     , http2-client == 0.3.0.2
+                     , mtl
+                     , bytestring
   default-language:    Haskell2010
 
 executable Pollen
