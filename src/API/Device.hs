@@ -24,7 +24,7 @@ type DeviceAPI =
          "devices" :> Get '[JSON] [Entity Device]
     :<|> "devices" :> Capture "uuid" Text :> Get '[JSON] (Entity Device)
     :<|> "devices" :> ReqBody '[JSON] Device :> Post '[JSON] Int64
-    :<|> "notifications" :> ReqBody '[JSON] Device :> Post '[JSON] String
+    :<|> "notifications" :> ReqBody '[JSON] Text :> Post '[JSON] String
 
 -- | The server that runs the DeviceAPI
 deviceServer :: ServerT DeviceAPI App
@@ -55,13 +55,13 @@ createDevice p = do
     newDevice <- runDb (insert p)
     return $ fromSqlKey newDevice
 
-sendTestNotification :: Device -> App String
+sendTestNotification :: Text -> App String
 sendTestNotification deviceToken = do
     let sandbox = True -- Production environment
     let timeout = 10   -- Minutes to keep the connection open
-    session <- newSession "Pollen.key" "Pollen.crt" "pushCA.pem" sandbox timeout "com.floracreative.PollenPush"
+    session <- liftIO $ newSession "Pollen.key" "Pollen.crt" "pushCA.pem" sandbox timeout "com.floracreative.PollenPush"
     let payload = alertMessage "Let's give it a go!" "Hello From Haskell"
     let message = newMessage payload
     let token   = hexEncodedToken deviceToken
-    result <- sendMessage session token message
-    return $ toString result
+    result <- liftIO $ sendMessage session token message
+    return $ show result
