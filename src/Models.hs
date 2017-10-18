@@ -22,6 +22,12 @@ import           GHC.Generics         (Generic)
 import           Config
 import           Data.Text (Text)
 
+newtype TestNotification =
+  TestNotification { deviceToken :: Text } deriving Generic
+
+instance FromJSON TestNotification
+instance ToJSON TestNotification
+
 share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
 Device json
     uuid Text
