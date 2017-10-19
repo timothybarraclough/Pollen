@@ -32,11 +32,11 @@ extension PostRequest {
         case .message(let uuid, let message) :
 
             struct Message: Codable {
-                var uuid : String
+                var deviceToken : String
                 var message : String
             }
 
-            try Message(uuid: uuid, message: message).encode(to: encoder)
+            try Message(deviceToken: uuid, message: message).encode(to: encoder)
         }
     }
 
@@ -45,7 +45,7 @@ extension PostRequest {
         case .device(_):
             return "devices"
         case .message(_ , _):
-            return "messages"
+            return "notifications"
         }
     }
 }

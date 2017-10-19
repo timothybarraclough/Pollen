@@ -71,6 +71,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate  {
     func application(_ application: UIApplication,
                      didReceiveRemoteNotification userInfo: [AnyHashable : Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+
+        let alert = UIAlertController(title: "Received remote notification", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction.init(title: "Dismiss", style: .cancel, handler: { action in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+
+        application.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+
         pollen.didReceiveRemoteNotification(notification: userInfo)
     }
+
+
 }

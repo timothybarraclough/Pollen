@@ -15,6 +15,8 @@ public class PollenNetworkSession {
     var hostDomain : URL! = URL(string:"http://localhost:8080")
     var delegate : APIResponder? = APIDelegate()
 
+    public var deviceTokenString : String?
+
     public static func configure(_ network: PollenNetworkSession, withHostDomain hostDomain: URL ) {
         network.hostDomain = hostDomain
     }

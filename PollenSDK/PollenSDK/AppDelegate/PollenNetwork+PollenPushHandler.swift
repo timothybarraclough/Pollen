@@ -19,6 +19,8 @@ extension PollenNetworkSession : PollenPushHandler {
         request(.device(tokenString)) { _ in
 
         }
+
+        deviceTokenString = tokenString
     }
 
     public func didFailToRegisterForRemoteNotifications(error: Error) {
@@ -46,6 +48,8 @@ extension PollenNetworkSession : PollenPushHandler {
             application.registerUserNotificationSettings(settings)
             application.registerForRemoteNotifications()
         }
+
+
 
     }
 }
