@@ -15,7 +15,7 @@ import           Servant
 import           Config                      (App (..), Config (..))
 import           Models
 
-import           API.Device
+import           DeviceAPI
 
 -- | This is the function we export to run our 'DeviceAPI'. Given
 -- a 'Config', we return a WAI 'Application' which any WAI compliant server

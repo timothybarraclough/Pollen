@@ -2,7 +2,7 @@
 {-# LANGUAGE TypeOperators              #-}
 {-# LANGUAGE OverloadedStrings          #-}
 
-module API.Device where
+module DeviceAPI where
 
 import           Control.Monad.Except
 import           Control.Monad.Reader        (ReaderT, runReaderT)
