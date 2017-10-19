@@ -15,7 +15,6 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-                     , src/API
   exposed-modules:     Lib
                      , Config
                      , Models
