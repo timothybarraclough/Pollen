@@ -1,7 +1,7 @@
 {-# LANGUAGE DataKinds                  #-}
 {-# LANGUAGE TypeOperators              #-}
 
-module Api (app) where
+module API (app) where
 
 import           Control.Monad.Except
 import           Control.Monad.Reader        (ReaderT, runReaderT)
@@ -15,7 +15,7 @@ import           Servant
 import           Config                      (App (..), Config (..))
 import           Models
 
-import           Api.Device
+import           API.Device
 
 -- | This is the function we export to run our 'DeviceAPI'. Given
 -- a 'Config', we return a WAI 'Application' which any WAI compliant server
@@ -49,11 +49,11 @@ files = serveDirectory "assets"
 -- always succeeds.
 type AppAPI = DeviceAPI :<|> Raw
 
-appApi :: Proxy AppAPI
-appApi = Proxy
+appAPI :: Proxy AppAPI
+appAPI = Proxy
 
 -- | Finally, this function takes a configuration and runs our 'DeviceAPI'
 -- alongside the 'Raw' endpoint that serves all of our files.
 app :: Config -> Application
 app cfg =
-    serve appApi (appToServer cfg :<|> files)
+    serve appAPI (appToServer cfg :<|> files)

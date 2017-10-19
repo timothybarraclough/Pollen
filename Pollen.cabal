@@ -15,11 +15,12 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
+                     , src/API
   exposed-modules:     Lib
                      , Config
                      , Models
-                     , Api
-                     , Api.Device
+                     , API
+                     , API.Device
   build-depends:       base >= 4.7 && < 5
                      , wai
                      , wai-extra
