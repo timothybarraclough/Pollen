@@ -20,6 +20,7 @@ library
                      , Models
                      , API
                      , DeviceAPI
+                     , Broadcast
   build-depends:       base >= 4.7 && < 5
                      , wai
                      , wai-extra
@@ -55,6 +56,14 @@ executable Pollen
   hs-source-dirs:      app
   main-is:             Main.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , Pollen
+  default-language:    Haskell2010
+
+executable PollenBroadcast
+  hs-source-dirs:      app
+  main-is:             BroadcastMain.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -main-is BroadcastMain
   build-depends:       base
                      , Pollen
   default-language:    Haskell2010
