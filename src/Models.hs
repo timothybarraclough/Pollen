@@ -28,6 +28,12 @@ newtype TestNotification =
 instance FromJSON TestNotification
 instance ToJSON TestNotification
 
+data SoundedNotification =
+  SoundedNotification { token :: Text, soundFile :: Text } deriving Generic
+
+instance FromJSON SoundedNotification
+instance ToJSON SoundedNotification
+
 share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
 Device json
     uuid Text

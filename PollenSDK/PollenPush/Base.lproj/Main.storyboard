@@ -18,26 +18,56 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HAd-cY-eWK">
-                                <rect key="frame" x="16" y="318.5" width="343" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="YNO-KM-2kG"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="didPressNotificationButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XLl-1d-GmC"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="GVF-16-lsf">
+                                <rect key="frame" x="16" y="36" width="343" height="203"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HAd-cY-eWK">
+                                        <rect key="frame" x="148.5" y="0.0" width="46" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="YNO-KM-2kG"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="didPressNotificationButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XLl-1d-GmC"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y9R-Kj-mZR">
+                                        <rect key="frame" x="148.5" y="66" width="46" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="l6g-KA-cME"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="didPressNotificationButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QDe-Mh-Cof"/>
+                                            <action selector="snareAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1JP-if-ZIl"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nmX-ky-U0g">
+                                        <rect key="frame" x="148.5" y="132" width="46" height="71"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="ILc-AW-2l0"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="didPressNotificationButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="icY-Qf-QIr"/>
+                                            <action selector="hatAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yvu-ye-6OJ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="HAd-cY-eWK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="5CQ-EF-mkE"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HAd-cY-eWK" secondAttribute="trailing" constant="16" id="QKr-Ie-H5X"/>
-                            <constraint firstItem="HAd-cY-eWK" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="S60-nQ-CI7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="GVF-16-lsf" secondAttribute="bottom" constant="16" id="PdO-GN-psq"/>
+                            <constraint firstItem="GVF-16-lsf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="pYh-wH-Ek4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="GVF-16-lsf" secondAttribute="trailing" constant="16" id="r14-au-YEE"/>
+                            <constraint firstItem="GVF-16-lsf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="rco-4F-0cd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="hatButton" destination="nmX-ky-U0g" id="9FH-BY-aNa"/>
+                        <outlet property="snareButton" destination="Y9R-Kj-mZR" id="A0I-LW-Dgb"/>
                         <outlet property="testNotificationButton" destination="HAd-cY-eWK" id="EF2-EJ-29S"/>
                     </connections>
                 </viewController>

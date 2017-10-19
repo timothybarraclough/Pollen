@@ -9,7 +9,7 @@
 import UIKit
 import PollenSDK
 
-class ViewController: UIViewController, Style {
+class ViewController: UIViewController, Style, Interruptible {
 
     @IBOutlet weak var testNotificationButton: UIButton!
 
@@ -19,30 +19,71 @@ class ViewController: UIViewController, Style {
         sendTestNotification()
     }
 
-    func sendTestNotification() {
+    @IBOutlet weak var hatButton: UIButton!
 
+    @IBOutlet weak var snareButton: UIButton!
+
+    @IBAction func snareAction(_ sender: Any) {
         if let token = PollenNetworkSession.shared.deviceTokenString {
-            print("Sending notification to: \(token)")
-            PollenNetworkSession.shared.request(.message(uuid: token, message: "Nothing here yet!")) { _ in
+            PollenNetworkSession.shared.request(.sound(uuid: token, sound: "sn.wav")) { _ in
 
             }
         }
-        //PollenNetworkSession.shared.deviceToken
-        
+
     }
+
+    @IBAction func hatAction(_ sender: Any) {
+        if let token = PollenNetworkSession.shared.deviceTokenString {
+            PollenNetworkSession.shared.request(.sound(uuid: token, sound: "hat.wav") ) { _ in
+
+            }
+        }
+    }
+    func sendTestNotification() {
+
+        if let token = PollenNetworkSession.shared.deviceTokenString {
+            PollenNetworkSession.shared.request(.sound(uuid: token, sound: "kick.wav")) { _ in
+
+            }
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = colors.backgroundColor
+        testNotificationButton.setTitle("kick notification", for: .normal)
+        hatButton.setTitle("hat notification", for: .normal)
+        snareButton.setTitle("snare notification", for: .normal)
 
-        testNotificationButton.setTitle("send test notification", for: .normal)
+        [testNotificationButton, hatButton, snareButton].forEach(applyButtonStyle)
 
-        applyButtonStyle(testNotificationButton)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+}
+
+protocol Interruptible {
+    func showAlert(in controller: UIViewController)
+}
+
+extension Interruptible {
+
+    func showAlert(in controller: UIViewController) {
+        let alert = UIAlertController(title: "Received remote notification",
+                                      message: nil,
+                                      preferredStyle: .alert)
+            alert.addAction(UIAlertAction.init(title: "Dismiss",
+                                               style: .cancel,
+                                               handler: { action in
+                                                alert.dismiss(animated: true, completion: nil)
+
+            }))
+
+        controller.present(alert, animated: true, completion: nil)
     }
 }
 

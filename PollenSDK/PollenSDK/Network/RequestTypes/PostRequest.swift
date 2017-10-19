@@ -12,6 +12,7 @@ public enum PostRequest : Encodable {
 
     case device(String)
     case message(uuid: String, message: String)
+    case sound(uuid: String, sound: String)
 
     static var encoder = JSONEncoder()
 
@@ -37,6 +38,12 @@ extension PostRequest {
             }
 
             try Message(deviceToken: uuid, message: message).encode(to: encoder)
+        case .sound(let uuid, let sound):
+            struct Sound: Codable {
+                var token : String
+                var soundFile : String
+            }
+            try Sound(token: uuid, soundFile: sound).encode(to: encoder)
         }
     }
 
@@ -46,6 +53,8 @@ extension PostRequest {
             return "devices"
         case .message(_ , _):
             return "notifications"
+        case .sound(_, _):
+            return "playSound"
         }
     }
 }

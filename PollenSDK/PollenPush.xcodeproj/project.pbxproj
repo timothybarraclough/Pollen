@@ -26,6 +26,9 @@
 		81BDFD311F749FE2006ABBA6 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDFD0B1F7379F0006ABBA6 /* Result.swift */; };
 		81BDFD341F74A226006ABBA6 /* PollenNetwork+PollenPushHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDFD331F74A226006ABBA6 /* PollenNetwork+PollenPushHandler.swift */; };
 		81BDFD361F74A23D006ABBA6 /* PollenPushHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDFD351F74A23D006ABBA6 /* PollenPushHandler.swift */; };
+		81CDAE161F98365600552D43 /* kick.wav in Resources */ = {isa = PBXBuildFile; fileRef = 81CDAE151F98365600552D43 /* kick.wav */; };
+		81CDAE191F983F4000552D43 /* sn.wav in Resources */ = {isa = PBXBuildFile; fileRef = 81CDAE171F983F4000552D43 /* sn.wav */; };
+		81CDAE1A1F983F4000552D43 /* hat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 81CDAE181F983F4000552D43 /* hat.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +78,9 @@
 		81BDFD201F749FD4006ABBA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81BDFD331F74A226006ABBA6 /* PollenNetwork+PollenPushHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PollenNetwork+PollenPushHandler.swift"; sourceTree = "<group>"; };
 		81BDFD351F74A23D006ABBA6 /* PollenPushHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollenPushHandler.swift; sourceTree = "<group>"; };
+		81CDAE151F98365600552D43 /* kick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = kick.wav; path = ../../../Downloads/kick.wav; sourceTree = "<group>"; };
+		81CDAE171F983F4000552D43 /* sn.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sn.wav; path = ../../../Downloads/sn.wav; sourceTree = "<group>"; };
+		81CDAE181F983F4000552D43 /* hat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = hat.wav; path = ../../../Downloads/hat.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +131,9 @@
 				81BDFCFB1F737751006ABBA6 /* Assets.xcassets */,
 				81BDFCFD1F737751006ABBA6 /* LaunchScreen.storyboard */,
 				81BDFD001F737751006ABBA6 /* Info.plist */,
+				81CDAE151F98365600552D43 /* kick.wav */,
+				81CDAE181F983F4000552D43 /* hat.wav */,
+				81CDAE171F983F4000552D43 /* sn.wav */,
 			);
 			path = PollenPush;
 			sourceTree = "<group>";
@@ -283,8 +292,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81CDAE1A1F983F4000552D43 /* hat.wav in Resources */,
+				81CDAE191F983F4000552D43 /* sn.wav in Resources */,
 				81BDFCFF1F737751006ABBA6 /* LaunchScreen.storyboard in Resources */,
 				81BDFCFC1F737751006ABBA6 /* Assets.xcassets in Resources */,
+				81CDAE161F98365600552D43 /* kick.wav in Resources */,
 				81BDFCFA1F737751006ABBA6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

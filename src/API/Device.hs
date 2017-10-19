@@ -1,5 +1,4 @@
 {-# LANGUAGE DataKinds                  #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE TypeOperators              #-}
 {-# LANGUAGE OverloadedStrings          #-}
 
@@ -25,6 +24,7 @@ type DeviceAPI =
     :<|> "devices" :> Capture "uuid" Text :> Get '[JSON] (Entity Device)
     :<|> "devices" :> ReqBody '[JSON] Device :> Post '[JSON] Int64
     :<|> "notifications" :> ReqBody '[JSON] TestNotification :> Post '[JSON] String
+    :<|> "playSound" :> ReqBody '[JSON] SoundedNotification :> Post '[JSON] String
 
 -- | The server that runs the DeviceAPI
 deviceServer :: ServerT DeviceAPI App
@@ -33,6 +33,7 @@ deviceServer =
     :<|> singleDevice
     :<|> createDevice
     :<|> sendTestNotification
+    :<|> sendSoundedNotification
 
 -- | Returns all devices in the database.
 allDevices :: App [Entity Device]
@@ -63,10 +64,29 @@ createDevice p = do
 sendTestNotification :: TestNotification -> App String
 sendTestNotification notification = do
     let sandbox = True -- Production environment
-    let timeout = 10   -- Minutes to keep the connection open
+        timeout = 10   -- Minutes to keep the connection open
+
     session <- liftIO $ newSession "Pollen.key" "Pollen.crt" "pushCA.pem" sandbox timeout "com.floracreative.PollenPush"
-    let payload = alertMessage "Let's give it a go!" "Hello From Haskell"
-    let message = newMessage payload
-    let token   = hexEncodedToken $ deviceToken notification
+
+    let payload        = alertMessage "Let's give it a go!" "Hello From Haskell"
+        soundedPayload = setSound "sound.wav" payload
+        message        = newMessage soundedPayload
+        token          = hexEncodedToken $ deviceToken notification
+
     result <- liftIO $ sendMessage session token message
+    return $ show result
+
+sendSoundedNotification :: SoundedNotification -> App String
+sendSoundedNotification notification = do
+    let sandbox = True -- Production environment
+        timeout = 10   -- Minutes to keep the connection open
+
+    session <- liftIO $ newSession "Pollen.key" "Pollen.crt" "pushCA.pem" sandbox timeout "com.floracreative.PollenPush"
+
+    let payload        = alertMessage "Let's give it a go!" "Hello From Haskell"
+        soundedPayload = setSound (soundFile notification) payload
+        message        = newMessage soundedPayload
+        encodedToken   = hexEncodedToken $ token notification
+
+    result <- liftIO $ sendMessage session encodedToken message
     return $ show result
