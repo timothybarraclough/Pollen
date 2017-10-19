@@ -52,8 +52,13 @@ singleDevice str = do
 -- | Creates a devices in the database.
 createDevice :: Device -> App Int64
 createDevice p = do
-    newDevice <- runDb (insert p)
-    return $ fromSqlKey newDevice
+    maybeDevice <- runDb (selectFirst [DeviceUuid ==. deviceUuid p] [])
+    case maybeDevice of
+      Nothing -> do
+          newDevice <- runDb (insert p)
+          return $ fromSqlKey newDevice
+      Just device ->
+          return 0
 
 sendTestNotification :: TestNotification -> App String
 sendTestNotification notification = do
