@@ -22,30 +22,18 @@ import Database.Persist.Sql
 import Database.Persist.TH  (mkMigrate, mkPersist, persistLowerCase, share, sqlSettings)
 import GHC.Generics         (Generic)
 
-newtype TestNotification =
-  TestNotification { deviceToken :: Text } deriving Generic
-
-instance FromJSON TestNotification
-instance ToJSON TestNotification
-
-data SoundedNotification =
-  SoundedNotification { token :: Text, soundFile :: Text } deriving Generic
-
-instance FromJSON SoundedNotification
-instance ToJSON SoundedNotification
-
 share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
 Device json
     uuid Text
     deriving Show Eq
 
 Notification json
-    uuid Text
+    deviceToken Text
     title Text
     body Text
     sound Text Maybe
     badge Int default=0
-    queuedAt UTCTime default=now()
+    queuedAt UTCTime Maybe default=now()
     deliveredAt UTCTime Maybe
     deriving Show Eq
 |]
