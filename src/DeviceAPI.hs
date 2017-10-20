@@ -19,6 +19,7 @@ import Models
 import Network.PushNotify.APN
 import Network.Wai                 (Application)
 import Servant
+import Data.Time
 
 
 newtype TestNotification =
@@ -82,6 +83,8 @@ createDevice p = do
 
 queueTestNotification :: TestNotification -> App String
 queueTestNotification notification = do
+  time <- liftIO getCurrentTime
+
   let notificationEntity =
         Notification
           (deviceToken (notification :: TestNotification))
@@ -89,7 +92,7 @@ queueTestNotification notification = do
           "Yay, it's working!" -- body
           Nothing              -- sound
           0                    -- badge
-          Nothing              -- queuedAt
+          (Just time)          -- queuedAt
           Nothing              -- deliveredAt
 
   queuedNotification <- runDb $ insert notificationEntity
@@ -98,6 +101,8 @@ queueTestNotification notification = do
 
 queueSoundedNotification :: SoundedNotification -> App String
 queueSoundedNotification notification = do
+  time <- liftIO getCurrentTime
+
   let notificationEntity =
         Notification
           (deviceToken (notification :: SoundedNotification))
@@ -105,7 +110,7 @@ queueSoundedNotification notification = do
           "Boo!"                          -- body
           (Just $ soundFile notification) -- sound
           0                               -- badge
-          Nothing                         -- queuedAt
+          (Just time)                     -- queuedAt
           Nothing                         -- deliveredAt
 
   queuedNotification <- runDb $ insert notificationEntity
