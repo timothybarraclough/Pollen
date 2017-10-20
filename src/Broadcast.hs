@@ -53,7 +53,7 @@ send session pool notificationEntity = do
       let query = update (entityKey notificationEntity) [ NotificationDeliveredAt =. Just time ]
       runSqlPool query pool
     failure -> do
-      let _ = Debug.Trace.trace "Failed to send message: " failure
+      print failure
       return ()
 
 
