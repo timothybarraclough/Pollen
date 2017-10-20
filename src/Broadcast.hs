@@ -22,7 +22,7 @@ import Models
 startBroadcaster :: IO ()
 startBroadcaster = do
   session <- liftIO $ newSession "Pollen.key" "Pollen.crt" "pushCA.pem" sandbox timeout "com.floracreative.PollenPush"
-  pool <- makePool Development
+  pool <- makePool Production
   forever $ processNotification session pool
   where
     sandbox = True -- Production environment
