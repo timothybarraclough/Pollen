@@ -25,6 +25,7 @@ import GHC.Generics         (Generic)
 share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
 Device json
     uuid Text
+    name Text
     deriving Show Eq
 
 Notification json
